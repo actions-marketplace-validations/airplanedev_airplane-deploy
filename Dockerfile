@@ -3,4 +3,4 @@ FROM gcr.io/airplane-public/airplane-cli:latest
 COPY . .
 RUN echo $PATH
 
-ENTRYPOINT ["sh", "-c", "/airplane/bin/airplane --host=$1 deploy airplane/anotha_one.js"]
+ENTRYPOINT ["sh", "-c", "/airplane/bin/airplane --host=$1 deploy ./"]
