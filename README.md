@@ -1,5 +1,5 @@
 # Airplane deploy
-Deploy all airplane tasks in a repo ✈️
+DA GitHub Action that deploys all Airplane tasks in a repo ✈️
 
 ## Usage
 1. Create a folder in the root level of your repo `.github/workflows` (if one does not already exist).
