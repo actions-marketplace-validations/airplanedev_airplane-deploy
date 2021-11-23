@@ -1,3 +1,3 @@
-FROM gcr.io/airplane-public/airplane-cli:latest
+FROM us-docker.pkg.dev/airplane-prod/public/cli:latest
 COPY . .
 ENTRYPOINT ["/entrypoint.sh"]
