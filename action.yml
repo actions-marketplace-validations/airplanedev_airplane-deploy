@@ -19,17 +19,37 @@ inputs:
     required: false
     description: Directory that contains airplane tasks.
     default: ./
+  repository:
+    required: false
+    description: Repository name with owner.
+    default: ${{ github.repository }}
+  user-name:
+    required: false
+    description: GitHub user who triggered the deploy.
+    default: ${{ github.actor }}
+  ref:
+    required: false
+    description: The branch or tag that triggered the deploy.
+    default: ${{ github.ref }}
+  commit-sha:
+    required: false
+    description: The commit hash associated with the deploy.
+    default: ${{ github.sha }}
+  commit-message:
+    required: false
+    description: The commit message associated with the deploy.
+    default: ${{ github.event.head_commit.message }}
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.host }}
     - ${{ inputs.task-directory }}
-    - ${{ github.repository }}
-    - ${{ github.actor }}
-    - ${{ github.ref }}
-    - ${{ github.sha }}
-    - ${{ github.event.head_commit.message }}
+    - ${{ inputs.repository }}
+    - ${{ inputs.user-name }}
+    - ${{ inputs.ref }}
+    - ${{ inputs.commit-sha }}
+    - ${{ inputs.commit-message }}
   env:
     AP_API_KEY: ${{ inputs.api-key }}
     AP_TEAM_ID: ${{ inputs.team-id }}
