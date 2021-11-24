@@ -47,9 +47,6 @@ runs:
     - ${{ inputs.task-directory }}
     - ${{ inputs.repository }}
     - ${{ inputs.user-name }}
-    - ${{ inputs.ref }}
-    - ${{ inputs.commit-sha }}
-    - ${{ inputs.commit-message }}
   env:
     AP_API_KEY: ${{ inputs.api-key }}
     AP_TEAM_ID: ${{ inputs.team-id }}
