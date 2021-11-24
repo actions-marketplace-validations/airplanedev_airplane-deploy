@@ -27,18 +27,6 @@ inputs:
     required: false
     description: GitHub user who triggered the deploy.
     default: ${{ github.actor }}
-  ref:
-    required: false
-    description: The branch or tag that triggered the deploy.
-    default: ${{ github.ref }}
-  commit-sha:
-    required: false
-    description: The commit hash associated with the deploy.
-    default: ${{ github.sha }}
-  commit-message:
-    required: false
-    description: The commit message associated with the deploy.
-    default: ${{ github.event.head_commit.message }}
 runs:
   using: 'docker'
   image: 'Dockerfile'
