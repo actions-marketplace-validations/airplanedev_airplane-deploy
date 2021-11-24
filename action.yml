@@ -25,6 +25,11 @@ runs:
   args:
     - ${{ inputs.host }}
     - ${{ inputs.task-directory }}
+    - ${{ github.repository }}
+    - ${{ github.actor }}
+    - ${{ github.ref }}
+    - ${{ github.sha }}
+    - ${{ github.event.head_commit.message }}
   env:
     AP_API_KEY: ${{ inputs.api-key }}
     AP_TEAM_ID: ${{ inputs.team-id }}
