@@ -33,8 +33,8 @@ runs:
   args:
     - ${{ inputs.host }}
     - ${{ inputs.task-directory }}
-    - ${{ inputs.repository }}
-    - ${{ inputs.user-name }}
   env:
     AP_API_KEY: ${{ inputs.api-key }}
     AP_TEAM_ID: ${{ inputs.team-id }}
+    AP_GIT_REPO: ${{ inputs.repository }}
+    AP_GIT_USER: ${{ inputs.user-name }}
