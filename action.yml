@@ -7,7 +7,7 @@ branding:
 inputs:
   api-key:
     required: true
-    description: "Your Airplane API Key. You can create one here: app.airplane.dev"
+    description: Your Airplane API Key.
   team-id:
     required: true
     description: Your Airplane Team ID.

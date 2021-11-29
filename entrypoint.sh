@@ -1,3 +1,3 @@
 #!/bin/sh -l
 
-airplane --host $1 --repository $3 --gitUser $4 deploy $2
+airplane --host $1 --repository $3 --git-user $4 deploy $2
