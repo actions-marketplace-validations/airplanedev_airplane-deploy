@@ -18,8 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
       - name: Deploy Airplane Tasks
         uses: airplanedev/airplane-deploy@v1
         with:
