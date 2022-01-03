@@ -19,26 +19,22 @@ inputs:
     required: false
     description: Directory that contains airplane tasks.
     default: ./
+  repository:
+    required: false
+    description: Repository name with owner.
+    default: ${{ github.repository }}
+  user-name:
+    required: false
+    description: GitHub user who triggered the deploy.
+    default: ${{ github.actor }}
 runs:
-  using: "composite"
-  steps:
-    - id: files
-      uses: jitterbit/get-changed-files@v1
-      with:
-        format: 'csv'
-    - run: echo ${{ steps.files.outputs.all }} | tr ',' '\n' > .airplane_changed_files.txt
-      shell: bash
-    - uses: actions/checkout@v2
-      with:
-        repository: airplanedev/airplane-deploy
-        ref: refs/tags/v1
-        path: .github/.airplane_actions/
-    - uses: ./.github/.airplane_actions/deploy
-      with:
-        api-key: ${{ inputs.api-key }}
-        team-id: ${{ inputs.team-id }}
-        host: ${{ inputs.host }}
-        task-directory: ${{ inputs.task-directory }}
-        changed-files: .airplane_changed_files.txt
-    - run: rm .airplane_changed_files.txt && rm -rf ./.github/.airplane_actions
-      shell: bash
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.host }}
+    - ${{ inputs.task-directory }}
+  env:
+    AP_API_KEY: ${{ inputs.api-key }}
+    AP_TEAM_ID: ${{ inputs.team-id }}
+    AP_GIT_REPO: ${{ inputs.repository }}
+    AP_GIT_USER: ${{ inputs.user-name }}
