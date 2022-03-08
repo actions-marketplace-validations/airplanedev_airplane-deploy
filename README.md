@@ -2,25 +2,24 @@
 A GitHub Action that deploys all Airplane tasks in a repo ✈️
 
 ## Usage
-1. Create a folder in the root level of your repo `.github/workflows` (if one does not already exist).
-2. Add a new `workflow` file named `airplane.yml`
-3. Copy and paste the following to deploy all airplane tasks in your repo every time you push or merge to your `main` branch:
+
+Create a file called `.github/workflows/airplane.yml` with the following contents and then push that to the `main` branch. Every subsequent push to the `main` branch will now deploy all Airplane tasks in the repo.
 
 ```yaml
-name: airplane deploy
+name: airplane
 on:
   push:
     branches:
       # Or "master"
       - main
 jobs:
-  deploy-tasks:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Deploy Airplane Tasks
-        uses: airplanedev/airplane-deploy@v1
+      - uses: actions/checkout@v3
+      - uses: airplanedev/airplane-deploy@v1
         with:
+          # Generate a new API key from the CLI by running `airplane apikeys create <key name>`.
           # Add your API key as a secret: https://docs.github.com/en/actions/security-guides/encrypted-secrets
           api-key: ${{ secrets.AIRPLANE_API_KEY }}
           # Find this at https://app.airplane.dev/settings/team
