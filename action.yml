@@ -1,5 +1,5 @@
-name: 'Airplane Deploy'
-description: 'Build and deploy task code to airplane.dev'
+name: "Airplane Deploy"
+description: "Build and deploy task code to airplane.dev"
 author: "support@airplane.dev"
 branding:
   color: blue
@@ -28,8 +28,8 @@ inputs:
     description: GitHub user who triggered the deploy.
     default: ${{ github.actor }}
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
     - ${{ inputs.host }}
     - ${{ inputs.task-directory }}
@@ -38,3 +38,4 @@ runs:
     AP_TEAM_ID: ${{ inputs.team-id }}
     AP_GIT_REPO: ${{ inputs.repository }}
     AP_GIT_USER: ${{ inputs.user-name }}
+    AP_SOURCE: githubAction
