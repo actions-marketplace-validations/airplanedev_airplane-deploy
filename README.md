@@ -33,3 +33,4 @@ jobs:
 | `api-key`     | **required**  | | An airplane API key. Generate by running `airplane apikeys create <key name>` from the [Airplane CLI](https://docs.airplane.dev/platform/airplane-cli)|
 | `team-id`  | **required**  | | Your airplane team ID. Find this in your [team settings](https://app.airplane.dev/settings/team)  |
 | `task-directory`   | _optional_  | `./` | The relative path from your GitHub repo root where your airplane tasks live. Setting this will speed up your deploy if your repo contains many files that aren't airplane tasks |
+| `env` | _optional_  | | The environment you want to deploy the tasks into. Defaults to your default environment.
