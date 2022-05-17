@@ -18,7 +18,7 @@ inputs:
   env:
     required: false
     description: Airplane environment to deploy in.
-    default: ''
+    default: ""
   task-directory:
     required: false
     description: Directory that contains airplane tasks.
@@ -32,15 +32,32 @@ inputs:
     description: GitHub user who triggered the deploy.
     default: ${{ github.actor }}
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  args:
-    - ${{ inputs.host }}
-    - ${{ inputs.task-directory }}
-    - ${{ inputs.env }}
-  env:
-    AP_API_KEY: ${{ inputs.api-key }}
-    AP_TEAM_ID: ${{ inputs.team-id }}
-    AP_GIT_REPO: ${{ inputs.repository }}
-    AP_GIT_USER: ${{ inputs.user-name }}
-    AP_SOURCE: githubAction
+  using: "composite"
+  steps:
+    # Checkout entire repo for the changed files step.
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    # Get all files changed from the last commit on the remote branch.
+    - id: files
+      uses: tj-actions/changed-files@v19
+      with:
+        separator: ","
+        since_last_remote_commit: true
+    # Write the CSV changed files into a newline separated file expected by the Airplane CLI.
+    - run: echo ${{ steps.files.outputs.all_changed_files }} | tr ',' '\n' > .airplane_changed_files.txt
+      shell: bash
+    # Run the Airplane deploy action, forwarding all inputs plus the changed files.
+    - uses: airplanedev/airplane-deploy/deploy@v1
+      with:
+        api-key: ${{ inputs.api-key }}
+        team-id: ${{ inputs.team-id }}
+        host: ${{ inputs.host }}
+        env: ${{ inputs.env }}
+        task-directory: ${{ inputs.task-directory }}
+        repository: ${{ inputs.repository }}
+        user-name: ${{ inputs.user-name }}
+        changed-files: .airplane_changed_files.txt
+    # Remove artifact created with this action.
+    - run: rm .airplane_changed_files.txt
+      shell: bash
