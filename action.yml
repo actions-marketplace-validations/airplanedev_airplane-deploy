@@ -40,7 +40,7 @@ runs:
         fetch-depth: 0
     # Get all files changed from the last commit on the remote branch.
     - id: files
-      uses: tj-actions/changed-files@v20
+      uses: tj-actions/changed-files@v23
       with:
         separator: ","
         since_last_remote_commit: true
